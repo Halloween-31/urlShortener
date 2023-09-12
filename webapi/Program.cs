@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
 
@@ -18,6 +19,14 @@ builder.Services.AddDbContext<AppDB_Context>(options =>
     options.UseSqlServer(connectionString);
 });
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -28,6 +37,9 @@ var app = builder.Build();
 
 
 //app.UseCors(builder => builder.AllowAnyOrigin());
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 // Configure the HTTP request pipeline.

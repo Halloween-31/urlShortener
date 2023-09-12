@@ -6,6 +6,7 @@ namespace webapi.Data
     public class AppDB_Context : DbContext
     {
         public DbSet<ShortUrlInfo> ShortUrlInfos { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
         public AppDB_Context(DbContextOptions<AppDB_Context> options) : base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

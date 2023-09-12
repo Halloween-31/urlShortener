@@ -1,21 +1,20 @@
-<div *ngIf="!ShortUrlsInfo">Loading...</div>
-<div *ngIf="ShortUrlsInfo" class="container" style="font-size: 15px;">
-  <ul class="ul-cont">
-    <li class="table-header">
-      <div class="col col-1">Url</div>
-      <div class="col col-2">Short Url</div>
-      <div class="col col-3">Info</div>
-    </li>
-    <li *ngFor="let url of ShortUrlsInfo" class="table-row">
-      <div class="col col-1">
-        <a href="">{{url?.url}}</a> 
+<header style="font-size: 15px;">
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+        <ul class="navbar-nav flex-grow-1">
+          <li class="nav-item">
+            <a href="" class="nav-link text-dark">Main</a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link text-dark">About</a>
+          </li>
+        </ul>
       </div>
-      <div class="col col-2">
-        <a href="">{{url?.shortUrl}}</a>      
+      <div>
+        <a routerLink="/logIn" class="nav-link text-dark">LogIn</a>
       </div>
-      <div class="col col-3">
-        <a href="">Url Info</a>
-      </div>
-    </li>
-  </ul>
-</div>
+    </div>
+  </nav>
+</header>
+<router-outlet></router-outlet>

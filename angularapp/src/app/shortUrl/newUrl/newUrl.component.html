@@ -1,0 +1,9 @@
+<dialog [style.display]="show? 'block': 'none'">
+  <div>
+    <form style="display: flex; flex-direction: column; align-items: center;">
+      <label style="margin:3%;">Enter url to short:</label>      
+      <input type="url" name="newUrl" [(ngModel)]="newUrl" style="margin:3%;" />
+      <input type="button" value="Add" (click)="Send()" style="margin:3%;" /> 
+    </form>
+  </div>
+</dialog>

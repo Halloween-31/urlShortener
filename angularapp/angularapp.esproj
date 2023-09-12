@@ -9,4 +9,10 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\angularapp</BuildOutputFolder>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\logIn\" />
+    <Folder Include="src\app\Services\" />
+    <Folder Include="src\app\shortUrl\shortUrlInfo\" />
+    <Folder Include="src\app\shortUrl\newUrl\" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,25 @@
+<div *ngIf="!ShortUrlsInfo" style="display:flex; justify-content:center">Loading...</div>
+<new-Url (onSend)="onSend($event)" [show]="show"></new-Url>
+<div *ngIf="ShortUrlsInfo" class="container" style="font-size: 15px;">
+  <ul class="ul-cont">
+    <li class="table-header">
+      <div class="col col-1">Url</div>
+      <div class="col col-2">Short Url</div>
+      <div class="col col-3">Info</div>
+    </li>
+    <li *ngFor="let url of ShortUrlsInfo" class="table-row">
+      <div class="col col-1">
+        <a href="{{ url?.url }}">{{url?.url}}</a> 
+      </div>
+      <div class="col col-2">
+        <a href="{{ url?.url }}">{{url?.shortUrl}}</a>      
+      </div>
+      <div class="col col-3">
+        <a href="{{ url?.id }}">Url Info</a>
+      </div>
+    </li>
+  </ul>
+  <div class="form-group;" style="margin-top:5%; display:flex; justify-content:flex-end" *ngIf="UserEmail">
+    <input type="submit" value="Add" class="btn btn-primary" (click)="Show()" />
+  </div>
+</div>
