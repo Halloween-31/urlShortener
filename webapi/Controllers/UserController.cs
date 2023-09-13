@@ -25,6 +25,19 @@ namespace webapi.Controllers
             _http_context = http_context;
         }
 
+        [HttpGet]
+        public async Task<bool> Get()
+        {
+            if(_http_context.HttpContext.User.FindFirstValue(ClaimTypes.Email) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         [HttpPost]
         public async Task<bool> Post([FromBody][Bind("Email, Password")]User user)
         {
@@ -38,8 +51,7 @@ namespace webapi.Controllers
             {
                 if (user == User)
                 {
-                    var claims = new List<Claim> { new Claim(ClaimTypes.Email, user.Email)
-                        };
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Email, user.Email) };
                    
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "MyCookiesAuthType");
                     await _http_context.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'short-Url',
@@ -9,17 +10,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ShortUrlComponent implements OnInit {
   public ShortUrlsInfo?: ShortUrlInfo[];
-  public UserEmail?: string;
+  public UserEmail: boolean;
   public show: boolean;
 
   constructor(private http: HttpClient,
-    private activateRoute: ActivatedRoute)
+    private activateRoute: ActivatedRoute,
+    private authService: AuthService)
   {
     this.show = false;
-    this.UserEmail = activateRoute.snapshot.queryParams['user'];
+    //this.UserEmail = activateRoute.snapshot.queryParams['user'];    
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.http.get<ShortUrlInfo[]>("/ShortUrl").subscribe(
       result => {
         this.ShortUrlsInfo = result;        
@@ -27,6 +29,7 @@ export class ShortUrlComponent implements OnInit {
       error => {
         console.error(error);
       });
+    this.UserEmail = await this.authService.checkIsLoggedIn();
   }
 
   onSend(newUrl: any) {
@@ -51,7 +54,7 @@ export class ShortUrlComponent implements OnInit {
   }
 
   Show() {
-    this.show = true;
+    this.show = !this.show;
   }
 }
 

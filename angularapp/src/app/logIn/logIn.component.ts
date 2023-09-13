@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
 
@@ -13,19 +13,19 @@ export class LogInComponent {
   NoUser: boolean = false;
 
   constructor(private http: HttpClient, private router: Router,
-    private auth: AuthService) { }
+    @Inject(AuthService) private auth: AuthService) { }
 
   LogIn() {
     this.http.post<boolean>("/LogIn", this.user).subscribe(
       result => {
         if (result == true) {
-          this.auth.login();
-          this.router.navigate([''],
-            {
+          //this.auth.login();
+          this.router.navigate(['']
+            /*{
               queryParams: {
                 'user': this.user.Email
               }
-            });
+            }*/);
         }
         else {
           this.NoUser = true;          

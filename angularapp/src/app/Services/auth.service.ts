@@ -1,10 +1,17 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',       // глобальный сервис
 })
 export class AuthService {
-  isLoggedIn = false;
-  login(): void { this.isLoggedIn = true; }
-  logout(): void { this.isLoggedIn = false; }
+  private isLoggedIn: boolean;
+
+  constructor(private http: HttpClient) { }
+
+  async checkIsLoggedIn() {
+    this.isLoggedIn = await this.http.get<boolean>("/LogIn").toPromise();      
+
+    return this.isLoggedIn;
+  }
 }

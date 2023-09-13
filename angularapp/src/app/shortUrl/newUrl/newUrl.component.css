@@ -1,0 +1,9 @@
+#myDialog {
+  display: none;
+  position: fixed;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-200%, -50%); /* Center by adjusting for width and height */
+  background-color: white;
+  padding: 20px;
+}

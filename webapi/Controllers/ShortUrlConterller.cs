@@ -29,7 +29,8 @@ namespace webapi.Controllers
             return _context.ShortUrlInfos.ToArray();
         }
 
-        [HttpGet("{id}")]        
+        [HttpGet("{id}")]
+        [Authorize]
         public async Task<ShortUrlInfo?> Get([FromRoute]int id)
         {
             return await _context.ShortUrlInfos.FirstOrDefaultAsync(sh => sh.Id == id);
@@ -57,5 +58,30 @@ namespace webapi.Controllers
 
             return Url;
         }
-    }
+
+        [HttpPost]
+        [Authorize]        
+        public async Task<bool> Delete([FromBody]int id)
+        {
+			var Url = await _context.ShortUrlInfos.FindAsync(id);
+            if(Url is null)
+            {
+                return false;
+            }
+            var UserEmail = _http_context.HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var User = await _context.Users.FirstOrDefaultAsync(u => u.Email == UserEmail);
+            if(User.Role != Role.Admin)
+            {
+                if (Url.CreatedBy != UserEmail)
+                {
+                    return false;
+                }
+            }
+
+            _context.ShortUrlInfos.Remove(Url); 
+            await _context.SaveChangesAsync();
+
+            return true;
+		}
+	}
 }

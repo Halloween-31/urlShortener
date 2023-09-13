@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 //builder.Services.AddCors();
+builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDB_Context>(options =>
 {
@@ -27,7 +29,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -38,9 +39,16 @@ var app = builder.Build();
 
 //app.UseCors(builder => builder.AllowAnyOrigin());
 
-app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+	app.UseExceptionHandler("/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -51,8 +59,27 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapRazorPages();
+
+/*app.UseEndpoints(endpoint =>
+{
+    endpoint.MapControllers();
+    endpoint.MapRazorPages();
+});*/
+/*app.UseEndpoints(endpoints => {
+    endpoints.MapRazorPages();
+    endpoints.MapControllerRoute("default", "{controller=About}/{action=Index}/{id?}");
+    endpoints.MapControllers();
+});*/
+/*app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=About}/{action=Index}/{id?}");*/
 
 app.Run();

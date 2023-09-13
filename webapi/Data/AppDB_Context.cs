@@ -12,6 +12,6 @@ namespace webapi.Data
         {
             //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ShortUrls;Trusted_Connection=True;");
             base.OnConfiguring(optionsBuilder);
-        }
+        }       
     }
 }
