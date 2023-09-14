@@ -69,8 +69,8 @@ namespace webapi.Controllers
                 return false;
             }
             var UserEmail = _http_context.HttpContext.User.FindFirstValue(ClaimTypes.Email);
-            var User = await _context.Users.FirstOrDefaultAsync(u => u.Email == UserEmail);
-            if(User.Role != Role.Admin)
+            var UserRole = _http_context.HttpContext.User.FindFirstValue(ClaimTypes.Role);
+            if(UserRole != Role.Admin.ToString())
             {
                 if (Url.CreatedBy != UserEmail)
                 {

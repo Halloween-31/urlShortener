@@ -51,7 +51,9 @@ namespace webapi.Controllers
             {
                 if (user == User)
                 {
-                    var claims = new List<Claim> { new Claim(ClaimTypes.Email, user.Email) };
+                    user = User;
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.Role, user.Role == 0 ? Role.Admin.ToString() : Role.User.ToString() )};
                    
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "MyCookiesAuthType");
                     await _http_context.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
