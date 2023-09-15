@@ -12,20 +12,13 @@ export class LogInComponent {
   user: User = new User("", "");
   NoUser: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router,
-    @Inject(AuthService) private auth: AuthService) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   LogIn() {
     this.http.post<boolean>("/LogIn", this.user).subscribe(
       result => {
-        if (result == true) {
-          //this.auth.login();
-          this.router.navigate(['']
-            /*{
-              queryParams: {
-                'user': this.user.Email
-              }
-            }*/);
+        if (result == true) {         
+          this.router.navigate(['']);
         }
         else {
           this.NoUser = true;          

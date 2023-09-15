@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 //builder.Services.AddCors();
 builder.Services.AddRazorPages();
-builder.Services.AddControllersWithViews();
+
 
 builder.Services.AddDbContext<AppDB_Context>(options =>
 {
@@ -29,6 +29,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -36,11 +37,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-
 //app.UseCors(builder => builder.AllowAnyOrigin());
-
-//app.UseAuthentication();
-//app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -58,8 +55,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthentication();
@@ -67,6 +64,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapRazorPages();
+
+app.Run();
 
 /*app.UseEndpoints(endpoint =>
 {
@@ -81,5 +80,3 @@ app.MapRazorPages();
 /*app.MapControllerRoute(
     name: "default",
     pattern: "{controller=About}/{action=Index}/{id?}");*/
-
-app.Run();
